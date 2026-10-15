@@ -50,3 +50,12 @@ licensed like those apps. Refresh them from the source path, never redraw them.
 |---|---|---|---|---|
 | `docs/brand/` (all files) | ArtCraft name, wordmark and mark | ArtCraft Team | getartcraft.com (via `craftrules/assets/brand/`) | Not open source; trademarks of the ArtCraft Team, [`docs/brand/LICENSE-brand.txt`](docs/brand/LICENSE-brand.txt) |
 | README app icons (linked, not copied) | Each Craft app's 64 px icon | ArtCraft Team and each app's contributors | `raw.githubusercontent.com/storytold/<app>/main/assets/app-icon/hicolor/64x64/apps/ai.storyteller.<app>.png` | MIT OR Apache-2.0 (each app's license) |
+
+## Linux Wayland frame (Cargo dependency)
+
+| Dependency asset | Title | Author | Source | Licence |
+|---|---|---|---|---|
+| `sctk-adwaita` 0.10.1: `src/title/Cantarell-Regular.ttf` | Cantarell Regular, unmodified fallback window-title font; Linux only | Understanding Limited; Jakub Steiner | [sctk-adwaita at d5f343c](https://github.com/PolyMeilex/sctk-adwaita/blob/d5f343c45c04d4a026db57f76760819b7325db00/src/title/Cantarell-Regular.ttf) | OFL-1.1; full copyright and licence in `NOTICE` |
+
+The font is embedded by the dependency, with no font file added to this repository.
+Adwaita window buttons are vector paths and do not depend on font glyphs.

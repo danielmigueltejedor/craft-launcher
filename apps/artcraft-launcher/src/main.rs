@@ -138,11 +138,11 @@ fn native_options(hidden: bool) -> eframe::NativeOptions {
         .with_inner_size([1120.0, 760.0])
         .with_min_inner_size([720.0, 500.0])
         .with_visible(!hidden);
-    // The header is the title bar (see `DesktopHost::title_bar`).
-    viewport = if cfg!(target_os = "macos") {
-        viewport.with_fullsize_content_view(true).with_titlebar_shown(false).with_title_shown(false)
-    } else {
-        viewport.with_decorations(false)
+    // Keep the native frame and the in-app header in agreement, avoiding duplicate buttons.
+    viewport = match desktop_title_bar() {
+        TitleBar::MacOs => viewport.with_fullsize_content_view(true).with_titlebar_shown(false).with_title_shown(false),
+        TitleBar::Native => viewport.with_decorations(true),
+        TitleBar::Custom => viewport.with_decorations(false),
     };
     // On macOS the bundle's .icns is the icon. Any icon given to eframe (its egui logo when none
     // is) replaces it in the Dock at runtime with a raw bitmap, which skips the system's icon
@@ -393,9 +393,19 @@ struct DesktopHost {
     quit: bool,
 }
 
+fn desktop_title_bar() -> TitleBar {
+    if cfg!(target_os = "macos") {
+        TitleBar::MacOs
+    } else if cfg!(target_os = "linux") {
+        TitleBar::Native
+    } else {
+        TitleBar::Custom
+    }
+}
+
 impl Host for DesktopHost {
     fn title_bar(&self) -> TitleBar {
-        if cfg!(target_os = "macos") { TitleBar::MacOs } else { TitleBar::Custom }
+        desktop_title_bar()
     }
 
     fn notify(&mut self, title: &str, body: &str) {
@@ -732,6 +742,13 @@ mod tests {
     use eframe::wgpu::rwh::{AppKitDisplayHandle, WaylandDisplayHandle, WindowsDisplayHandle, XcbDisplayHandle, XlibDisplayHandle};
 
     use super::*;
+
+    #[cfg(target_os = "linux")]
+    #[test]
+    fn linux_uses_the_native_frame_without_duplicate_header_buttons() {
+        assert_eq!(desktop_title_bar(), TitleBar::Native);
+        assert_eq!(native_options(false).viewport.decorations, Some(true));
+    }
 
     const NOW: i64 = 1_791_500_000;
 
