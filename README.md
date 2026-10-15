@@ -295,6 +295,18 @@ lot from them. Thank you to their authors:
 | [ArtCraft Hub Launcher](https://github.com/tinyplayerss/artcraft-hub-launcher) | [@tinyplayerss](https://github.com/tinyplayerss) | A friendly, one-window hub for the whole suite |
 | [CraftHub](https://github.com/MegaTheLEGEND/CraftHub) | [@MegaTheLEGEND](https://github.com/MegaTheLEGEND) | Serving the apps' web builds from a self-hosted launcher |
 
+## Linux window controls
+
+For an actual Wayland window whose compositor does not offer server decorations
+(including GNOME), the launcher enables winit's Adwaita client-side frame with
+vector minimize, maximize/restore and close buttons in the desktop's layout.
+X11 and compositors advertising server decorations retain the custom header.
+Failed or slow capability probes retain its working controls.
+
+The frame renders controls without title text, so it embeds no Cantarell. The
+in-app header identifies the launcher, and window titles remain available to
+desktop window switchers. This does not claim full GTK theme parity.
+
 ## License and credits
 
 ArtCraft Launcher is dual-licensed under [MIT](LICENSE-MIT) or [Apache-2.0](LICENSE-APACHE), at your option.
@@ -317,17 +329,3 @@ Forks and modified versions must remove them.
   <a href="https://getartcraft.com/"><img alt="ArtCraft" src="docs/brand/artcraft-mark.svg" width="28"></a><br>
   <sub>Made by the <a href="https://getartcraft.com/">ArtCraft</a> team and community.</sub>
 </p>
-
-## Linux window controls
-
-Linux desktop builds enable winit's Adwaita client-side frame on GNOME/Wayland,
-where the compositor does not provide server-side decorations. Its minimize,
-maximize/restore and close icons are drawn as vectors, so the close button does
-not depend on a font containing a particular character. The frame follows the
-desktop's button layout; X11 and compositors offering server-side decorations
-keep their window manager's frame. The frame's title-font renderer is disabled,
-so it embeds no Cantarell; document names remain in the app's tabs.
-
-The launcher selects this frame only for an actual Wayland window without server
-decorations. X11 and compositors advertising server decorations retain its
-custom header. Failed or slow capability probes retain the custom controls.

@@ -35,7 +35,7 @@ serde = { workspace = true }
 raw-window-handle = "0.6"
 wayland-client = "0.31"
 # GNOME/Wayland needs client decorations. Vector controls require no bundled
-# title font; document names remain in the application's tab strip.
+# title font; the launcher's identity remains in its own header.
 winit = { version = "0.30", default-features = false, features = ["wayland-csd-adwaita-notitle"] }
 
 zbus = "5"
