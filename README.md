@@ -325,4 +325,9 @@ where the compositor does not provide server-side decorations. Its minimize,
 maximize/restore and close icons are drawn as vectors, so the close button does
 not depend on a font containing a particular character. The frame follows the
 desktop's button layout; X11 and compositors offering server-side decorations
-keep their window manager's frame.
+keep their window manager's frame. The frame's title-font renderer is disabled,
+so it embeds no Cantarell; document names remain in the app's tabs.
+
+The launcher selects this frame only for an actual Wayland window without server
+decorations. X11 and compositors advertising server decorations retain its
+custom header. Failed or slow capability probes retain the custom controls.
