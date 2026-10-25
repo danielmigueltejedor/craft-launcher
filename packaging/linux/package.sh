@@ -135,7 +135,6 @@ if has appimage; then
   fi
   APPDIR="$WORK/ArtCraftLauncher.AppDir"
   cp -R "$STAGE" "$APPDIR"
-  mv "$APPDIR/usr/share/doc" "$WORK/doc-unused"
   # Preserve sctk-adwaita MIT license after removing package documentation.
   install -Dm644 "$ROOT/NOTICE" "$APPDIR/usr/share/doc/$PKG/NOTICE"
   # AppRun is a script, not a symlink: it installs the .desktop entry and icons into
