@@ -184,3 +184,13 @@ Packaging facts the code relies on:
 - Keep every `Cargo.toml` valid at all times: the `crates/*` and `apps/*` globs mean one broken
   manifest breaks everyone's build. Write manifests to a temp file and `mv` them into place.
 - If someone else's in-progress edit breaks the build, wait and retry; don't fix their files.
+
+## Repository-specific deterministic quality contract (2026-10-26)
+
+**Project:** Rust launcher/workspace with multiple apps/crates.
+
+**Engineering requirements:** Preserve app launch/install and workspace packaging behavior. Do not force GUI compilation without appropriate desktop dependencies.
+
+**Verification commands:** cargo fmt --all -- --check; cargo metadata --locked --no-deps --format-version 1; targeted cargo test.
+
+Before completion, run relevant checks and report exact pass/fail results. Add regression tests for changed behavior, bounds and failure paths. Never weaken/delete/skip tests, suppress warnings, or change CI thresholds to fabricate green results. Changes to `QUALITY_GATES.md`, this contract, and workflows require human review. The `quality` status must be required in branch protection to make the gate enforceable. If native dependencies prevent a test, explicitly report the blocker rather than claiming success. Existing project instructions have precedence for build setup; this section augments them.
